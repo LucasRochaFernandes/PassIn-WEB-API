@@ -8,6 +8,6 @@ public class PassInDbContext : DbContext
     public DbSet<Event> Events {get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=\\<path>\\PassInDb.db");
+        optionsBuilder.UseSqlite("Data Source=D:\\C#\\Personal\\Projects\\NLW-UNITE\\PassInDb.db");
     }
 }

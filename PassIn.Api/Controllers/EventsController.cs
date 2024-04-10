@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PassIn.Application.UseCases.Events.Register;
+using PassIn.Application.UseCases.Events;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
@@ -32,11 +32,11 @@ public class EventsController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(typeof(ResponseRegisterJsonEventJson), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public IActionResult GetById([FromBody] Guid id)
+    [ProducesResponseType(typeof(ResponseEventJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public IActionResult GetById([FromRoute] Guid id)
     {
         try
         {

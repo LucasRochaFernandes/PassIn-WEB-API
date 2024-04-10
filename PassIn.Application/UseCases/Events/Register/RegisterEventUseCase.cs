@@ -1,10 +1,9 @@
-using Microsoft.EntityFrameworkCore;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
 
-namespace PassIn.Application.UseCases.Events.Register;
+namespace PassIn.Application.UseCases.Events;
 public class RegisterEventUseCase
 {
     public ResponseRegisterJsonEventJson Execute(RequestEventJson request)
