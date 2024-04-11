@@ -14,15 +14,25 @@ public class ExceptionFilter : IExceptionFilter
         var result = context.Exception is PassInException;
         if (result)
         {
-            HandleException();
+            HandleException(context);
         }
         else
         {
             ThrowUnknownError(context);
         }
     }
-    private void HandleException()
+    private void HandleException(ExceptionContext context)
     {
+        if(context.Exception is NotFoundException)
+        {
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            context.Result = new NotFoundObjectResult(new ResponseErrorJson(context.Exception.Message));
+        }
+        else if (context.Exception is ErrorOnValidationException)
+        {
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Result = new BadRequestObjectResult(new ResponseErrorJson(context.Exception.Message));
+        }
 
     }
     private void ThrowUnknownError(ExceptionContext context)
