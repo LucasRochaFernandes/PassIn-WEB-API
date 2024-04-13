@@ -39,10 +39,13 @@ public class EventsController : ControllerBase
     [HttpPost]
     [Route("{eventId}/attendee")]
     [ProducesResponseType(typeof(void), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
     public IActionResult RegisterAttendee([FromBody] RequestRegisterAttendee request, [FromRoute] Guid eventId)
     {
         var useCase = new RegisterAttendeeUseCase();
-        useCase.Execute(request, eventId);
-        return Created();
+        var response = useCase.Execute(request, eventId);
+        return Created(string.Empty, response);
     }
 }

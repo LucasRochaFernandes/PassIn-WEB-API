@@ -1,4 +1,5 @@
 ﻿using PassIn.Communication.Requests;
+using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
 using System.Net.Mail;
@@ -11,7 +12,7 @@ public class RegisterAttendeeUseCase
     {
         _dbContext = new PassInDbContext();
     }
-    public void Execute(RequestRegisterAttendee request, Guid eventId)
+    public ResponseRegisterJsonEventJson Execute(RequestRegisterAttendee request, Guid eventId)
     {
         Validate(eventId, request);
         var entity = new Infrastructure.Entities.Attendee
@@ -22,6 +23,11 @@ public class RegisterAttendeeUseCase
         };
         _dbContext.Attendees.Add(entity);
         _dbContext.SaveChanges();
+
+        return new ResponseRegisterJsonEventJson {
+            Id = entity.Id
+        };
+
     }
     private void Validate(Guid eventId, RequestRegisterAttendee request)
     {
@@ -29,6 +35,13 @@ public class RegisterAttendeeUseCase
         if(eventExists is null)
         {
             throw new NotFoundException("Event Not Found");
+        } else
+        {
+        var count = _dbContext.Attendees.Count(attendee => attendee.Event_Id == eventId);
+        if(count + 1 > eventExists.Maximum_Attendees)
+            {
+                throw new ConflictException("Maximum Number of attendees was surpassed");
+            }
         }
         if (string.IsNullOrWhiteSpace(request.Name))
         {
@@ -41,7 +54,7 @@ public class RegisterAttendeeUseCase
         var attendeeAlreadyRegistered = _dbContext.Attendees.Any(attendee => attendee.Email.Equals(request.Email) && attendee.Event_Id.Equals(eventId));
         if (attendeeAlreadyRegistered == true)
         {
-            throw new ErrorOnValidationException("It is not possible to register a attendee twice for the same event");
+            throw new ConflictException("It is not possible to register a attendee twice for the same event");
         }
     }
     private bool EmailIsValid(string email)
