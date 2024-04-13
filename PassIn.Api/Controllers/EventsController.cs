@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PassIn.Application.UseCases.Events;
+using PassIn.Application.UseCases.Events.RegisterAttendee;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
-using PassIn.Exceptions;
 
 namespace PassIn.Api.Controllers;
 
@@ -34,5 +34,15 @@ public class EventsController : ControllerBase
             var response = useCase.Execute(id);
 
             return Ok(response);    
+    }
+
+    [HttpPost]
+    [Route("{eventId}/attendee")]
+    [ProducesResponseType(typeof(void), StatusCodes.Status201Created)]
+    public IActionResult RegisterAttendee([FromBody] RequestRegisterAttendee request, [FromRoute] Guid eventId)
+    {
+        var useCase = new RegisterAttendeeUseCase();
+        useCase.Execute(request, eventId);
+        return Created();
     }
 }
