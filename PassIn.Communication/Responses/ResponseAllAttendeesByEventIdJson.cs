@@ -1,5 +1,5 @@
 ﻿namespace PassIn.Communication.Responses;
-public class ResponseAllAttendeesjson
+public class ResponseAllAttendeesByEventIdJson
 {
     public List<ResponseAttendeeJson> Attendees { get; set; } = [];
 }
