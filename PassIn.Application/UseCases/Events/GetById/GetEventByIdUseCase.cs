@@ -9,7 +9,6 @@ public class GetEventByIdUseCase
     {
         var dbContext = new PassInDbContext();
 
-
         var entity = dbContext.Events.Find(id);
         if (entity is null)
         {

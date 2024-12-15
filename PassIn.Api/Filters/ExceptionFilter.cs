@@ -6,7 +6,6 @@ using System.Net;
 
 namespace PassIn.Api.Filters;
 
-
 public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)

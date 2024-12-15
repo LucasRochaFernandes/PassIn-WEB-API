@@ -1,3 +1,4 @@
+using AutoMapper;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
@@ -12,13 +13,12 @@ public class RegisterEventUseCase
 
         var dbContext = new PassInDbContext();
 
-        var entity = new Infrastructure.Entities.Event
-        {   
-            Title = request.Title,
-            Details = request.Details,
-            Maximum_Attendees = request.MaximumAttendees,
-            Slug = request.Title.ToLower().Replace(" ", "-"),
-        };
+        var mapper = new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<EventProfile>(); 
+        }).CreateMapper();
+
+        var entity = mapper.Map<Infrastructure.Entities.Event>(request);
 
         dbContext.Events.Add(entity);
         dbContext.SaveChanges();
