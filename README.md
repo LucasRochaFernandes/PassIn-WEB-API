@@ -1,4 +1,3 @@
-
 # PassIn Solution
 
 ## Overview
@@ -9,6 +8,7 @@ The **PassIn Solution** is a backend Web API designed for managing events and th
 - **Participant Management**: Register and list participants for events.
 - **SQLite Database**: Simplified database setup for ease of development and testing.
 - **Unit Testing**: Comprehensive unit tests using xUnit.
+- **Mutation Testing**: Test coverage analysis using Stryker.
 
 ## Solution Structure
 The solution consists of six projects:
@@ -39,12 +39,14 @@ The solution consists of six projects:
 6. **PassIn.UnitTests**
    - Contains unit tests for the application.
    - Uses xUnit for test cases to ensure the reliability of business logic and other components.
+   - Incorporates mutation testing with Stryker to validate test quality.
 
 ## Technologies Used
 - **.NET 8**: Backend framework for Web API development.
 - **Entity Framework Core**: ORM for database interactions.
 - **SQLite**: Lightweight database for development purposes.
 - **xUnit**: Testing framework for unit tests.
+- **Stryker**: Mutation testing framework for evaluating test coverage and effectiveness.
 - **Clean Architecture**: Ensures a clear separation of concerns and maintainability.
 
 ## Getting Started
@@ -78,10 +80,15 @@ The solution consists of six projects:
    ```bash
    dotnet test
    ```
+3. Run mutation tests with Stryker to evaluate test coverage:
+   ```bash
+   dotnet stryker
+   ```
 
 ## Project Highlights
 - **SQLite Database**: Chosen for simplicity and to avoid making the database a focal point of the application. Migrations and configurations are handled via EF Core.
 - **Clean Architecture**: Ensures separation of concerns by organizing the solution into clear layers.
 - **xUnit Tests**: Validates the core functionality of the application and ensures the integrity of business logic.
+- **Stryker Mutation Testing**: Enhances test quality by identifying weaknesses in test coverage and ensuring robustness.
 
 ---

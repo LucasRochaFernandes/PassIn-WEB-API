@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PassIn.Application.UseCases.Events;
+using PassIn.Application.UseCases.Events.GetAll;
 using PassIn.Application.UseCases.Events.RegisterAttendee;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
@@ -36,6 +37,16 @@ public class EventsController : ControllerBase
 
             return Ok(response);    
     }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(IList<ResponseEventJson>), StatusCodes.Status200OK)]
+    public IActionResult GetAll([FromServices] PassInDbContext dbContext)
+    {
+        var useCase = new GetAllEventsUseCase(dbContext);
+        var response = useCase.Execute();
+        return Ok(response);
+    }
+
 
     [HttpPost]
     [Route("{eventId}/attendee")]
