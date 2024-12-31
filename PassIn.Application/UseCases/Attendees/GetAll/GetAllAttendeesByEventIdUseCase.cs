@@ -7,9 +7,10 @@ namespace PassIn.Application.UseCases.Attendees.GetAll;
 public class GetAllAttendeesByEventIdUseCase
 {
     private readonly PassInDbContext _dbContext;
-    public GetAllAttendeesByEventIdUseCase()
+
+    public GetAllAttendeesByEventIdUseCase(PassInDbContext dbContext)
     {
-        _dbContext = new PassInDbContext();
+        _dbContext = dbContext;
     }
     public ResponseAllAttendeesByEventIdJson Execute(Guid eventId)
     {

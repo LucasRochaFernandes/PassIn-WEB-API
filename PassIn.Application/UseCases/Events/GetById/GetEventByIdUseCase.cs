@@ -5,11 +5,19 @@ using PassIn.Infrastructure;
 namespace PassIn.Application.UseCases.Events;
 public class GetEventByIdUseCase
 {
+    private readonly PassInDbContext _dbContext;
+
+    public GetEventByIdUseCase(PassInDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
     public ResponseEventJson Execute(Guid id)
     {
-        var dbContext = new PassInDbContext();
 
-        var entity = dbContext.Events.Find(id);
+        var entity = _dbContext.Events
+            .Find(id);
+
         if (entity is null)
         {
             throw new NotFoundException("Event Not Found.");

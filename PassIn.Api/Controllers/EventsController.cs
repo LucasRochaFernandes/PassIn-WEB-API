@@ -3,6 +3,7 @@ using PassIn.Application.UseCases.Events;
 using PassIn.Application.UseCases.Events.RegisterAttendee;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
+using PassIn.Infrastructure;
 
 namespace PassIn.Api.Controllers;
 
@@ -12,10 +13,10 @@ public class EventsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisterJsonEventJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public IActionResult Register([FromBody] RequestEventJson request)
+    public IActionResult Register([FromBody] RequestEventJson request, [FromServices] PassInDbContext dbContext)
     {
        
-            var useCase = new RegisterEventUseCase();
+            var useCase = new RegisterEventUseCase(dbContext);
 
             var response = useCase.Execute(request);
 
@@ -27,9 +28,9 @@ public class EventsController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(typeof(ResponseEventJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public IActionResult GetById([FromRoute] Guid id)
+    public IActionResult GetById([FromRoute] Guid id, [FromServices] PassInDbContext dbContext)
     {
-            var useCase = new GetEventByIdUseCase();
+            var useCase = new GetEventByIdUseCase(dbContext);
 
             var response = useCase.Execute(id);
 
@@ -42,9 +43,12 @@ public class EventsController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
-    public IActionResult RegisterAttendee([FromBody] RequestRegisterAttendee request, [FromRoute] Guid eventId)
+    public IActionResult RegisterAttendee(
+                    [FromBody] RequestRegisterAttendee request, 
+                    [FromRoute] Guid eventId, 
+                    [FromServices] PassInDbContext dbContext)
     {
-        var useCase = new RegisterAttendeeUseCase();
+        var useCase = new RegisterAttendeeUseCase(dbContext);
         var response = useCase.Execute(request, eventId);
         return Created(string.Empty, response);
     }

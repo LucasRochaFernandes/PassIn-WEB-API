@@ -1,10 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using PassIn.Api.Filters;
+using PassIn.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddDbContext<PassInDbContext>(opts =>
+    opts.UseSqlite("Data Source=D:\\C#\\Personal\\Projects\\NLW-UNITE\\PassInDb.db")
+);
 
 builder.Services.AddEndpointsApiExplorer();
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PassIn.Infrastructure.Entities;
 using PassIn.Communication.Requests;
+using PassIn.Communication.Responses;
 
 public class EventProfile : Profile
 {
@@ -13,5 +14,6 @@ public class EventProfile : Profile
                 ).ForMember(
                     dest=> dest.Maximum_Attendees,
                     opt => opt.MapFrom(src=> src.MaximumAttendees));
+        CreateMap<Event, ResponseEventJson>();
     }
 }

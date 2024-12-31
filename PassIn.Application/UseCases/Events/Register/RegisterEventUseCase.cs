@@ -7,11 +7,15 @@ using PassIn.Infrastructure;
 namespace PassIn.Application.UseCases.Events;
 public class RegisterEventUseCase
 {
+    private readonly PassInDbContext _dbContext;
+
+    public RegisterEventUseCase(PassInDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
     public ResponseRegisterJsonEventJson Execute(RequestEventJson request)
     {
         Validate(request);
-
-        var dbContext = new PassInDbContext();
 
         var mapper = new MapperConfiguration(cfg =>
         {
@@ -20,8 +24,8 @@ public class RegisterEventUseCase
 
         var entity = mapper.Map<Infrastructure.Entities.Event>(request);
 
-        dbContext.Events.Add(entity);
-        dbContext.SaveChanges();
+        _dbContext.Events.Add(entity);
+        _dbContext.SaveChanges();
 
         return new ResponseRegisterJsonEventJson
         {

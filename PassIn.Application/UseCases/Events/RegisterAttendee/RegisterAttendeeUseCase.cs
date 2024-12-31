@@ -5,12 +5,14 @@ using PassIn.Infrastructure;
 using System.Net.Mail;
 
 namespace PassIn.Application.UseCases.Events.RegisterAttendee;
+
 public class RegisterAttendeeUseCase
 {
     private readonly PassInDbContext _dbContext;
-    public RegisterAttendeeUseCase()
+
+    public RegisterAttendeeUseCase(PassInDbContext dbContext)
     {
-        _dbContext = new PassInDbContext();
+        _dbContext = dbContext;
     }
     public ResponseRegisterJsonEventJson Execute(RequestRegisterAttendee request, Guid eventId)
     {
