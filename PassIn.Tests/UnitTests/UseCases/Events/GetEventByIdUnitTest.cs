@@ -3,17 +3,16 @@ using PassIn.Application.UseCases.Events;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
 using PassIn.Infrastructure.Entities;
+using PassIn.UnitTests.Fixtures;
 
-namespace PassIn.UnitTests.Events;
-public class GetEventByIdUnitTest
+namespace PassIn.UnitTests.UnitTests.UseCases.Events;
+public class GetEventByIdUnitTest : IClassFixture<DbContextFixture>
 {
-    private PassInDbContext CreateInMemoryDbContext()
-    {
-        var options = new DbContextOptionsBuilder<PassInDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) 
-            .Options;
+    private readonly PassInDbContext _dbContext;
 
-        return new PassInDbContext(options);
+    public GetEventByIdUnitTest(DbContextFixture dbContextFixture)
+    {
+        _dbContext = dbContextFixture.Context;
     }
 
 
@@ -21,35 +20,33 @@ public class GetEventByIdUnitTest
     public void GetEventById_WhenIdIsValid_ShouldReturnEvent()
     {
         //Arrange
-        var dbContext = CreateInMemoryDbContext();
-        var useCase = new GetEventByIdUseCase(dbContext);
+        var useCase = new GetEventByIdUseCase(_dbContext);
         Guid eventId = Guid.NewGuid();
-        dbContext.Events.Add(new Event
+        _dbContext.Events.Add(new Event
         {
             Id = eventId,
             Title = "Sample Event",
             Details = "This is a test event",
             Maximum_Attendees = 100
         });
-        dbContext.SaveChanges();
+        _dbContext.SaveChanges();
 
         // Act
         var result = useCase.Execute(eventId);
 
         //Assert
-        Assert.NotNull(result); 
-        Assert.Equal(eventId, result.Id); 
-        Assert.Equal("Sample Event", result.Title); 
-        Assert.Equal("This is a test event", result.Details); 
+        Assert.NotNull(result);
+        Assert.Equal(eventId, result.Id);
+        Assert.Equal("Sample Event", result.Title);
+        Assert.Equal("This is a test event", result.Details);
     }
 
     [Fact(DisplayName = "Given an invalid id, When executed, Then it should return a type of error not found")]
     public void GetEventById_WhenIdIsInvalid_ShouldReturnNotFoundError()
     {
         //Arrange
-        var dbContext = CreateInMemoryDbContext();
-        var useCase = new GetEventByIdUseCase(dbContext);
-        Guid eventId =  Guid.NewGuid();
+        var useCase = new GetEventByIdUseCase(_dbContext);
+        Guid eventId = Guid.NewGuid();
 
         //Act & Assert
         Assert.Throws<NotFoundException>(() => useCase.Execute(eventId));

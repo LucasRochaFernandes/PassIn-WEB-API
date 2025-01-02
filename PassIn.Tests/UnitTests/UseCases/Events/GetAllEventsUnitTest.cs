@@ -3,17 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using PassIn.Application.UseCases.Events.GetAll;
 using PassIn.Infrastructure;
 using PassIn.Infrastructure.Entities;
+using PassIn.UnitTests.Fixtures;
 
-namespace PassIn.UnitTests.Events;
-public class GetAllEventsUnitTest
+namespace PassIn.UnitTests.UnitTests.UseCases.Events;
+public class GetAllEventsUnitTest : IClassFixture<DbContextFixture>
 {
-    private PassInDbContext CreateInMemoryDbContext()
+    private readonly PassInDbContext _dbContext;
+    public GetAllEventsUnitTest(DbContextFixture dbContextFixture)
     {
-        var options = new DbContextOptionsBuilder<PassInDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-            .Options;
-
-        return new PassInDbContext(options);
+        _dbContext = dbContextFixture.Context;
     }
 
     [Fact(DisplayName = "Given multiple events registered in the database, " +
@@ -22,15 +20,14 @@ public class GetAllEventsUnitTest
     {
         // Arrange
         int count = 30;
-        var dbContext = CreateInMemoryDbContext();
-        var useCase = new GetAllEventsUseCase(dbContext);
+        var useCase = new GetAllEventsUseCase(_dbContext);
         var faker = new Faker<Event>()
             .RuleFor(e => e.Title, f => f.Lorem.Sentence(5))
             .RuleFor(e => e.Details, f => f.Lorem.Paragraph())
             .RuleFor(e => e.Maximum_Attendees, f => f.Random.Int(1, 100));
         var events = faker.Generate(count);
-        dbContext.Events.AddRange(events);
-        dbContext.SaveChanges();
+        _dbContext.Events.AddRange(events);
+        _dbContext.SaveChanges();
 
 
         //Act
@@ -38,6 +35,6 @@ public class GetAllEventsUnitTest
 
         //Assert
         Assert.NotEmpty(result);
-        Assert.Equal(count, result.Count); 
+        Assert.Equal(count, result.Count);
     }
 }

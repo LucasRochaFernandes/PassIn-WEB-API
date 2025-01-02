@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<PassInDbContext>(opts =>
-    opts.UseSqlite("Data Source=D:\\C#\\Personal\\Projects\\NLW-UNITE\\PassInDb.db")
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
 builder.Services.AddEndpointsApiExplorer();
