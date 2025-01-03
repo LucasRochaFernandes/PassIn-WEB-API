@@ -22,4 +22,12 @@ public class EventDataBuilder : Faker<Event>
         eventEntity.Slug = eventEntity.Title.ToLower().Replace(" ", "-");
         return eventEntity;
     }
+
+    public IEnumerable<Event> BuildMany(int quantity)
+    {
+        return Generate(quantity).Select(e => {
+            e.Slug = e.Title.ToLower().Replace(" ", "-");
+            return e;
+        });
+    }
 }

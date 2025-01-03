@@ -11,23 +11,29 @@ using Testcontainers.MsSql;
 
 
 namespace PassIn.IntegrationTests.IntegrationTests.Auth;
-public class AuthEndpointsIntegrationTests : IClassFixture<DbContextFixture>
+public class AuthEndpointsIntegrationTests : IClassFixture<DbContextFixture>, IDisposable
 {
-    private readonly MsSqlContainer _msSqlContainer;
     private readonly PassInDbContext _dbContext;
+    private readonly PassInWebApplicationFactory _appFactory;
+    private readonly DbContextFixture _dbContextFixture;
 
     public AuthEndpointsIntegrationTests(DbContextFixture dbContextFixture)
     {
-        _msSqlContainer = dbContextFixture._msSqlContainer;
         _dbContext = dbContextFixture.Context;
+        _appFactory = new PassInWebApplicationFactory(dbContextFixture._msSqlContainer);
+        _dbContextFixture = dbContextFixture;
+    }
+
+    public void Dispose()
+    {
+        _dbContextFixture.ResetDatabase();
     }
 
     [Fact(DisplayName = "Given valid credentials, When executed, Then it should return a valid token")]
     public async Task PostCredentials_WhenExecuted_ShouldReturnToken()
     {
         //Arrange 
-        var app = new PassInWebApplicationFactory(_msSqlContainer);
-        using var client = app.CreateClient();
+        using var client = _appFactory.CreateClient();
         _dbContext.Users.Add(new User { 
             Username= "ExampleUsername",
             Password = BCrypt.Net.BCrypt.HashPassword("PassWord123#")

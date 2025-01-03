@@ -24,11 +24,14 @@ public class DbContextFixture : IAsyncLifetime
     public void ResetDatabase()
     {
         Context.Database.ExecuteSqlRaw(@"
-            EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL';
-            EXEC sp_MSForEachTable 'DELETE FROM ?';
-            EXEC sp_MSForEachTable 'ALTER TABLE ? CHECK CONSTRAINT ALL';
-            EXEC sp_MSForEachTable 'DBCC CHECKIDENT (''?'', RESEED, 0)';
-        ");
+            DELETE FROM Attendees
+            ");
+        Context.Database.ExecuteSqlRaw(@"
+            DELETE FROM Events
+            ");
+        Context.Database.ExecuteSqlRaw(@"
+            DELETE FROM Users
+            ");
         Context.SaveChanges();
     }
     public async Task DisposeAsync()
