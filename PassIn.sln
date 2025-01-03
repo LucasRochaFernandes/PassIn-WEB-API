@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.UnitTests", "PassIn.Tests\PassIn.UnitTests.csproj", "{387B46D5-54AF-4A88-ACAB-C3C76A312F4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.e2eTests", "PassIn.e2eTests\PassIn.e2eTests.csproj", "{FE28C45B-5297-498A-9DAB-A4EA6F4C086B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.IntegrationTests", "PassIn.e2eTests\PassIn.IntegrationTests.csproj", "{FE28C45B-5297-498A-9DAB-A4EA6F4C086B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

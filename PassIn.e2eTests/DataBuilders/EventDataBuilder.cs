@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using PassIn.Infrastructure.Entities;
 
-namespace PassIn.e2eTests.DataBuilders;
+namespace PassIn.IntegrationsTests.DataBuilders;
 public class EventDataBuilder : Faker<Event>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
