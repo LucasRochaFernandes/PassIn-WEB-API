@@ -7,5 +7,6 @@ public class PassInDbContext : DbContext
 {
     public DbSet<Event> Events {get; set; }
     public DbSet<Attendee> Attendees { get; set; }
+    public DbSet<User> Users { get; set; }
     public PassInDbContext(DbContextOptions<PassInDbContext> options) : base(options) { }
 }

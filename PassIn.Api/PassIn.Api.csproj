@@ -9,13 +9,13 @@
   <ItemGroup>
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />	  
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PassIn.Application\PassIn.Application.csproj" />
-    <ProjectReference Include="..\PassIn.Communication\PassIn.Communication.csproj" />
-	  
+    <ProjectReference Include="..\PassIn.Communication\PassIn.Communication.csproj" /> 
     <ProjectReference Include="..\PassIn.Exceptions\PassIn.Exceptions.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PassIn.Api.AuthServices;
 using PassIn.Api.Filters;
 using PassIn.Infrastructure;
 
@@ -11,6 +12,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<PassInDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+builder.Services.AddAuthService(builder.Configuration);
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -27,6 +32,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

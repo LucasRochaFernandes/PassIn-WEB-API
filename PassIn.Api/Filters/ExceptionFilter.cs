@@ -22,7 +22,7 @@ public class ExceptionFilter : IExceptionFilter
     }
     private void HandleException(ExceptionContext context)
     {
-        if(context.Exception is NotFoundException)
+        if (context.Exception is NotFoundException)
         {
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
             context.Result = new NotFoundObjectResult(new ResponseErrorJson(context.Exception.Message));
@@ -37,7 +37,10 @@ public class ExceptionFilter : IExceptionFilter
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Conflict;
             context.Result = new ConflictObjectResult(new ResponseErrorJson(context.Exception.Message));
         }
-
+        else if (context.Exception is UnauthorizedException) {
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
+        }
     }
     private void ThrowUnknownError(ExceptionContext context)
     {

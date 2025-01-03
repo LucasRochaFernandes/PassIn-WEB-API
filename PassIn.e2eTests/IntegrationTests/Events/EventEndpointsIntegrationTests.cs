@@ -5,10 +5,10 @@ using Testcontainers.MsSql;
 
 namespace PassIn.IntegrationsTests.e2eTests.Events;
 
-public class EventControllersIntegrationTests : IClassFixture<DbContextFixture>
+public class EventEndpointsIntegrationTests : IClassFixture<DbContextFixture>
 {
     private readonly MsSqlContainer _msSqlContainer;
-    public EventControllersIntegrationTests(DbContextFixture dbContextFixture)
+    public EventEndpointsIntegrationTests(DbContextFixture dbContextFixture)
     {
         _msSqlContainer = dbContextFixture._msSqlContainer;  
     }
