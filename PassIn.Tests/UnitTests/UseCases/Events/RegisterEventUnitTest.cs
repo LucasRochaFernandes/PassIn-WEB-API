@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PassIn.Application.UseCases.Events;
+﻿using PassIn.Application.UseCases.Events;
 using PassIn.Communication.Requests;
 using PassIn.Infrastructure;
 using PassIn.UnitTests.Fixtures;
