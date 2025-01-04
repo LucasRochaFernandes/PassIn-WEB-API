@@ -13,5 +13,7 @@ jobs:
           dotnet-version: 8.0.x
       - name: Checkout do código
         uses: actions/checkout@v2 
-      - name: Execução do teste de unidade 
+      - name: Execute Unit Tests
         run: dotnet test ./PassIn.UnitTests
+      - name: Execute Integration Tests
+        run: dotnet test ./PassIn.IntegrationTests
