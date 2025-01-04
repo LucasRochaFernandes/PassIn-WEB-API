@@ -15,13 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.Exceptions", "PassIn
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{50460698-DD93-450F-9DAC-F27AD9D3A0BF}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		README.md = README.md
+		.github\workflows\actions.yml = .github\workflows\actions.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.UnitTests", "PassIn.Tests\PassIn.UnitTests.csproj", "{387B46D5-54AF-4A88-ACAB-C3C76A312F4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.UnitTests", "PassIn.UnitTests\PassIn.UnitTests.csproj", "{B5989233-4F00-401C-867A-307CC1648875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.IntegrationTests", "PassIn.e2eTests\PassIn.IntegrationTests.csproj", "{FE28C45B-5297-498A-9DAB-A4EA6F4C086B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassIn.IntegrationTests", "PassIn.IntegrationTests\PassIn.IntegrationTests.csproj", "{025A6EB3-554D-47B8-A038-D2652029B0AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,14 +49,14 @@ Global
 		{C98E9A70-91BD-45D2-A403-ED7AF882D3FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C98E9A70-91BD-45D2-A403-ED7AF882D3FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C98E9A70-91BD-45D2-A403-ED7AF882D3FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{387B46D5-54AF-4A88-ACAB-C3C76A312F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{387B46D5-54AF-4A88-ACAB-C3C76A312F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{387B46D5-54AF-4A88-ACAB-C3C76A312F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{387B46D5-54AF-4A88-ACAB-C3C76A312F4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE28C45B-5297-498A-9DAB-A4EA6F4C086B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE28C45B-5297-498A-9DAB-A4EA6F4C086B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE28C45B-5297-498A-9DAB-A4EA6F4C086B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE28C45B-5297-498A-9DAB-A4EA6F4C086B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5989233-4F00-401C-867A-307CC1648875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5989233-4F00-401C-867A-307CC1648875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5989233-4F00-401C-867A-307CC1648875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5989233-4F00-401C-867A-307CC1648875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{025A6EB3-554D-47B8-A038-D2652029B0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{025A6EB3-554D-47B8-A038-D2652029B0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{025A6EB3-554D-47B8-A038-D2652029B0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{025A6EB3-554D-47B8-A038-D2652029B0AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
