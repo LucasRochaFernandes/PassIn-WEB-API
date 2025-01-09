@@ -11,8 +11,10 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 8.0.x
-      - name: Checkout do código
+      - name: Code Checkout
         uses: actions/checkout@v2 
+      - name: Restore Dependencies
+        run: dotnet restore
       - name: Execute Unit Tests
         run: dotnet test ./PassIn.UnitTests
       - name: Execute Integration Tests
